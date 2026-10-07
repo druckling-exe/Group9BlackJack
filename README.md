@@ -41,48 +41,72 @@ GROUP EVALUATION (80% OF YOUR PERSONAL SCORE)
 
 
  Code complexity Your group will receive a score from 0-5 as follows:
+
 1 pt - Code enables accurate simulation of a two-player game of blackjack, with both players using
 dealer rules (hit until 17 is reached). Ace is kept fixed at 11.
+
 2 pts - Code enables accurate simulation of a two-player game of blackjack, where one player is a
 real player (who actively interacts with the game) and the other player uses dealer rules. Ace as 11.
+
 3 pts - Code enables accurate simulation of a two-player game of blackjack, with both players using
 dealer rules (hit until 17 is reached). Ace can take on a value of either 1 or 11.
+
 4 pts - Code enables accurate simulation of a two-player game of blackjack, where one player is a
 real player (who actively interacts with the game) and the other player uses dealer rules. Ace can take
 on a value of either 1 or 11.
+
 5 pts - Code enables accurate simulation of a 2 or more-player game of blackjack, where one player
 is a real player (who actively interacts with the game) and the other players use dealer rules. The user is
 prompted to enter the number of players. Ace can take on a value of either 1 or 11.
 
 
  Code commenting
+
 1 pt - >10% of lines of code are commented with a useful comment
+
 2 pts - >20% of lines of code are commented with a useful comment
+
 3 pts - >33% of lines of code are commented with a useful comment
+
+
  Use of functions
+
 1 pt - a separate function exists for creating a shuffled deck of cards
+
 2 pts - same as “1 pt”, but also with a second function that exists for dealing the initial set of cards
+
 to each player
+
 3 pts - same as “2 pts”, but also with a third function that exists for playing each player’s hands (that
 is called for each player), i.e., allows the user to interact by deciding to HIT or STAND once their
 cards are drawn.
 
 
  Self-group evaluation (written in “GroupXX_selfgroupeval.pdf” file)
+
 1 pt - Group provides its own self-evaluation score for “Code complexity”, “Code commenting”, and
 “Use of functions”. For example, your group is to provide its opinion of how many points you believe
 you should receive for each of these three categories.
 
 
 INDIVIDUAL EVALUATION (20% OF YOUR PERSONAL SCORE)
+
 1 pt - Student provides self evaluation on the following criteria (on scale of A-F, where A is excellent
 and F is extremely below average). Please note that your self evaluation will not be used to modify your
 grade on this problem set - I am more interested in learning about your reflections on the project.
+
 (i) Personal contribution to code development
+
 (ii) Impression of how your group performed as a team
+
 (ii) Personal comfort level with this assignment
+
 2 pts - Same as “1 pt”, but also with short answers to the following questions:
+
 (i) What went well with this assignment?
+
 (ii) What went poorly with this assignment?
+
 (iii) What would you change about this assignment?
+
 (iv) To what degree did this assignment help you learn MATLAB programming concepts (A-F scale)?
