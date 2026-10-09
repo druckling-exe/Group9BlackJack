@@ -20,3 +20,14 @@ end
 % disp(deck) => just for testing to make sure for loop works
 
 deck = deck(randperm(numel(deck))); %randomizes the deck
+
+playerCount = str2num(playerCount); %converts player count to a numerical value
+
+ hands = strings(playerCount, 2); % deals two cards to each player
+
+ for playerIndex = (1:playerCount);
+    hands(playerIndex, :) = deck(1:2);
+    deck(1:2) = []; %removes cards dealt to players from deck
+ end
+
+disp(hands) %displays cards dealt to players
