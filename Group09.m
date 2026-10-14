@@ -31,3 +31,19 @@ playerCount = str2num(playerCount); %converts player count to a numerical value
  end
 
 disp(hands) %displays cards dealt to players
+
+%%dealer rules
+dealer = 1;
+hands = strings(dealer, 2); % deals two cards to dealer
+
+ for dealerIndex = (1:dealer);
+    hands(dealerIndex, :) = deck(1:2);
+    deck(1:2) = []; %removes cards dealt to dealer from deck
+ end
+disp('Dealer hand:')
+disp(hands) %displays cards dealt to dealer
+
+if hands(dealerIndex) <= 16;  % if dealer total card value is <= 16, draws card
+    hands(playerIndex, :) = deck(1);
+    deck(1) = [];
+end
