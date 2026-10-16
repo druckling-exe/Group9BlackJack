@@ -1,49 +1,61 @@
-clc; %keep this line of code => must use for full credit
+clc; % keep this line of code => must use for full credit
 
-disp('Welcome to Group 9s Casino! Ready for some BlackJack?'); %Simple Welcome message
+disp('Welcome to Group 9s Casino! Ready for some BlackJack?'); % Simple Welcome message
 
-playerCount = input('How many players came to lose money today? ', 's'); %call for number of players
-disp(['Welcome ' playerCount ' players!']) %response for number of players
+playerCount = input('How many players came to lose money today? ', 's'); % call for number of players
+disp(['Welcome ' playerCount ' players!']) % response for number of players
 
-cardRank = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]; %details the possible rank of cards
-cardSuit = ["Heart", "Spade", "Diamond", "Club"]; %details the possible suit of cards
+cardRank = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]; % details the possible rank of cards
+cardSuit = ["Heart", "Spade", "Diamond", "Club"]; % details the possible suit of cards
 
-deck = strings(52,1); %assigns an Array to hold 52 possible cards
+deck = strings(52,1); % assigns an Array to hold 52 possible cards
 
-for i = 1:52 %forloop using i
+for i = 1:52 % forloop using i
     rankIdx = mod(i - 1, numel(cardRank)) + 1;
-    suitIdx = floor((i - 1) / numel(cardRank)) + 1; %assigns each number in the array by working through cardRank and the when at end swithces suit
+    suitIdx = floor((i - 1) / numel(cardRank)) + 1; % assigns each number in the array by working through cardRank and the when at end swithces suit
 
-    deck(i) = cardRank(rankIdx) + " of " + cardSuit(suitIdx); %assigns each slot in array the proper card
+    deck(i) = cardRank(rankIdx) + " of " + cardSuit(suitIdx); % assigns each slot in array the proper card
 end
 
 % disp(deck) => just for testing to make sure for loop works
 
-deck = deck(randperm(numel(deck))); %randomizes the deck
+deck = deck(randperm(numel(deck))); % randomizes the deck
 
-playerCount = str2num(playerCount); %converts player count to a numerical value
+playerCount = str2num(playerCount); % converts player count to a numerical value (str2num function)
 
- hands = strings(playerCount, 2); % deals two cards to each player
+playerHands = strings(playerCount, 2); % deals two cards to each player
 
- for playerIndex = (1:playerCount);
-    hands(playerIndex, :) = deck(1:2);
-    deck(1:2) = []; %removes cards dealt to players from deck
- end
+for playerIndex = (1:playerCount)
+    playerHands(playerIndex, :) = deck(1:2);
+    deck(1:2) = []; % removes cards dealt to players from deck
+end
 
-disp(hands) %displays cards dealt to players
+playerIndex = 1; % starts player counter at 1
+while playerIndex <= playerCount % loops through each player
+    disp(['Player ' num2str(playerIndex) ':']) % displays current player number
+    disp(playerHands(playerIndex, 1) + "  " + playerHands(playerIndex, 2)) % displays player's two cards
+    disp(' ') % adds a blank line between players
+    playerIndex = playerIndex + 1; % moves to the next player
+end
 
 %%dealer rules
-dealer = 1;
-hands = strings(dealer, 2); % deals two cards to dealer
+dealer = 1; % sets dealer to 1
+dealerHand = strings(dealer, 2); % deals two cards to dealer
 
- for dealerIndex = (1:dealer);
-    hands(dealerIndex, :) = deck(1:2);
+for dealerIndex = 1:dealer
+    dealerHand(dealerIndex, :) = deck(1:2);
     deck(1:2) = []; %removes cards dealt to dealer from deck
- end
-disp('Dealer hand:')
-disp(hands) %displays cards dealt to dealer
+end
 
-if hands(dealerIndex) <= 16;  % if dealer total card value is <= 16, draws card
-    hands(playerIndex, :) = deck(1);
+disp('Dealer hand:') % displays the words 'Dealer hand'
+disp(dealerHand) % displays the cards
+
+
+dealerTotal = 0;  % compute from dealer cards here
+
+%%dealer function to hit
+
+if dealerTotal <= 16 
+    dealerHand(1, :) = deck(1);
     deck(1) = [];
 end
