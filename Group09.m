@@ -1,49 +1,49 @@
 clc; % keep this line of code => must use for full credit
 
-disp('Welcome to Group 9s Casino! Ready for some BlackJack?'); % Welcome message
+disp('Welcome to Group 9s Casino! Ready for some BlackJack?'); % welcome message, idk thought it was funny
 
-playerCount = input('How many players came to lose money today? '); % Ask how many players are playing
-disp(['Welcome ' num2str(playerCount) ' players!']) % Confirm the number of players
+playerCount = input('How many players came to lose money today? '); % ask how many players are playing
+disp(['Welcome ' num2str(playerCount) ' players!']) % confirm the number of players
 
-[cardRank, cardSuit, cardVals] = cardCreation(); % Create the card ranks, suits, and values
-[deck, deckVals] = shuffleDeck(cardRank, cardSuit, cardVals); % Build and shuffle the deck
+[cardRank, cardSuit, cardVals] = cardCreation(); % creates the card ranks, suits, and values
+[deck, deckVals] = shuffleDeck(cardRank, cardSuit, cardVals); % builds and shuffle the deck
 
 % disp(deck) => just for testing to make sure for loop works
 
-playerHands = strings(playerCount, 2); % Deals two cards to each player
-playerHandVals = zeros(playerCount, 2); % Stores the matching values for each player's cards
+playerHands = strings(playerCount, 2); % deals two cards to each player
+playerHandVals = zeros(playerCount, 2); % stores the matching values for each player's cards
 
 for playerIndex = 1:playerCount
-    playerHands(playerIndex, :) = deck(1:2).'; % Deal the first two cards to this player
-    playerHandVals(playerIndex, :) = deckVals(1:2).'; % Store the matching card values
-    deck(1:2) = []; % Remove the dealt cards from the deck
-    deckVals(1:2) = []; % Remove the matching values from the value list
+    playerHands(playerIndex, :) = deck(1:2).'; % deal the two cards to this player
+    playerHandVals(playerIndex, :) = deckVals(1:2).'; % store the matching card values
+    deck(1:2) = []; % remove the dealt cards from the deck so we dont have repeats
+    deckVals(1:2) = []; % remove the matching values from the value list
 end
 
-disp("Player hands:") % Label the player hand display
-disp(playerHands) % Show all player hands
+disp("Player hands:") % label the player hand display
+disp(playerHands) % show all player hands
 
 %% Dealer rules
-dealerHand = strings(1, 2); % Holds the dealer's cards
-dealerHandVals = zeros(1, 2); % Holds the dealer's card values
+dealerHand = strings(1, 2); % holds the dealer's cards
+dealerHandVals = zeros(1, 2); % holds the dealer's card values
 
-dealerHand(1, :) = deck(1:2).'; % Deal two cards to the dealer
-dealerHandVals(1, :) = deckVals(1:2).'; % Store the matching dealer values
-deck(1:2) = []; % Remove the dealer's cards from the deck
-deckVals(1:2) = []; % Remove the dealer's values from the value list
+dealerHand(1, :) = deck(1:2).'; % deals two cards to the dealer
+dealerHandVals(1, :) = deckVals(1:2).'; % stores the dealer values
+deck(1:2) = []; % remove the dealer's cards from the deck
+deckVals(1:2) = []; % remove the dealer's values from the value list
 
-dealerTotal = sum(dealerHandVals); % Compute the dealer's starting total
+dealerTotal = sum(dealerHandVals); % compute the dealer's starting total
 
-while dealerTotal <= 16 && ~isempty(deck) % Dealer hits until the total is 17 or more
-    dealerHand = [dealerHand deck(1)]; % Add the next card to the dealer's hand
-    dealerHandVals = [dealerHandVals deckVals(1)]; % Add the matching value
-    deck(1) = []; % Remove the card from the deck
-    deckVals(1) = []; % Remove the matching value from the value list
-    dealerTotal = sum(dealerHandVals); % Recompute the dealer total
+while dealerTotal <= 16 && ~isempty(deck) % dealer hits until the total is 17 or more
+    dealerHand = [dealerHand deck(1)]; % add the next card to the dealer's hand
+    dealerHandVals = [dealerHandVals deckVals(1)]; % add the matching value
+    deck(1) = []; % remove the card from the deck
+    deckVals(1) = []; % remove the matching value from the value list
+    dealerTotal = sum(dealerHandVals); % recompute the dealer total
 end
 
-disp("Dealer hand:") % Label the dealer hand display
-disp(dealerHand) % Show the dealer's hand
+disp("Dealer hand:") % label the dealer hand display
+disp(dealerHand) % show the dealer's hand
 
 %%%%% Function Graveyard
 
