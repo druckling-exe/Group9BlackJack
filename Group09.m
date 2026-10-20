@@ -42,7 +42,16 @@ disp("Dealer final hand:") % show dealer hand label
 disp(dealerHand) % display dealer hand
 disp(['Dealer score: ' num2str(dealerScore)]) % display the dealer score
 
-
+% Ending messages
+if finalScores > 21
+    disp('Bust! You lose') % Bust losing message
+elseif (finalScores <= 21) && (finalScores > dealerScore)
+    disp('You win!') % Winning message 
+elseif finalScores < 17
+    disp('You lose') % Losing message
+elseif finalScores == dealerScore
+    disp('Push! Its a tie!')
+end
 
 %%%%% Function Graveyard
 
@@ -168,6 +177,7 @@ end
 disp('Dealer finished with hand:');
 disp(hand);
 end
+
 
 
 %Function to calculate the hand score
