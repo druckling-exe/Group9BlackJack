@@ -179,3 +179,13 @@ while score > 21 && any(handVals == 11)
     score = sum(handVals);
 end
 end
+
+if score > 21
+    disp('Bust! You lose') % Bust losing message
+elseif (score < 21) && (score > dealerScore)
+    disp('You win!') % Winning message 
+elseif score < 17
+    disp('You lose') % Losing message
+elseif score == dealerScore
+    disp('Push! Its a tie!')
+end
