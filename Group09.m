@@ -10,37 +10,10 @@ disp(['Welcome ' num2str(playerCount) ' players!']) % confirm the number of play
 
 % disp(deck) => just for testing to make sure for loop works
 
-playerHands = strings(playerCount, 2); % deals two cards to each player
-playerHandVals = zeros(playerCount, 2); % stores the matching values for each player's cards
-
-for playerIndex = 1:playerCount
-    playerHands(playerIndex, :) = deck(1:2).'; % deal the two cards to this player
-    playerHandVals(playerIndex, :) = deckVals(1:2).'; % store the matching card values
-    deck(1:2) = []; % remove the dealt cards from the deck so we dont have repeats
-    deckVals(1:2) = []; % remove the matching values from the value list
-end
+[playerHands, playerHandVals, dealerHand, dealerHandVals, deck, deckVals] = dealDeck(deck, deckVals, playerCount); % deals cards to players and dealer
 
 disp("Player hands:") % label the player hand display
 disp(playerHands) % show all player hands
-
-%% Dealer rules
-dealerHand = strings(1, 2); % holds the dealer's cards
-dealerHandVals = zeros(1, 2); % holds the dealer's card values
-
-dealerHand(1, :) = deck(1:2).'; % deals two cards to the dealer
-dealerHandVals(1, :) = deckVals(1:2).'; % stores the dealer values
-deck(1:2) = []; % remove the dealer's cards from the deck
-deckVals(1:2) = []; % remove the dealer's values from the value list
-
-dealerTotal = sum(dealerHandVals); % compute the dealer's starting total
-
-while dealerTotal <= 16 && ~isempty(deck) % dealer hits until the total is 17 or more
-    dealerHand = [dealerHand deck(1)]; % add the next card to the dealer's hand
-    dealerHandVals = [dealerHandVals deckVals(1)]; % add the matching value
-    deck(1) = []; % remove the card from the deck
-    deckVals(1) = []; % remove the matching value from the value list
-    dealerTotal = sum(dealerHandVals); % recompute the dealer total
-end
 
 disp("Dealer hand:") % label the dealer hand display
 disp(dealerHand) % show the dealer's hand
@@ -74,6 +47,33 @@ deckVals = deckVals(perm); % Shuffle the values the same way
 end
 
 %Function that deals deck
+%Function that deals deck
+function [playerHands, playerHandVals, dealerHand, dealerHandVals, deck, deckVals] = dealDeck(deck, deckVals, playerCount) % Deals cards to players and dealer
+playerHands = strings(playerCount, 2); % holds the two cards for each player
+playerHandVals = zeros(playerCount, 2); % holds the matching values for each player's cards
+
+for playerIndex = 1:playerCount % loop through each player
+    playerHands(playerIndex, :) = deck(1:2).'; % deal the first two cards to this player
+    playerHandVals(playerIndex, :) = deckVals(1:2).'; % store the matching card values
+    deck(1:2) = []; % remove the dealt cards from the deck so we dont have repeats
+    deckVals(1:2) = []; % remove the matching values from the value list
+end
+
+dealerHand = strings(1, 2); % holds the dealer's cards
+dealerHandVals = zeros(1, 2); % holds the dealer's card values
+
+dealerHand = deck(1:2).'; % deal two cards to the dealer
+dealerHandVals = deckVals(1:2).'; % store the dealer values
+deck(1:2) = []; % remove the dealer's cards from the deck
+deckVals(1:2) = []; % remove the dealer's values from the value list
+
+while sum(dealerHandVals) <= 16 && ~isempty(deck) % dealer hits until the total is 17 or more
+    dealerHand = [dealerHand deck(1)]; % add the next card to the dealer's hand
+    dealerHandVals = [dealerHandVals deckVals(1)]; % add the matching value
+    deck(1) = []; % remove the card from the deck
+    deckVals(1) = []; % remove the matching value from the value list
+end
+end
 
 %Function for dealer rules
 
