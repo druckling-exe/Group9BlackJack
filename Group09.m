@@ -43,9 +43,9 @@ disp(dealerHand) % display dealer hand
 disp(['Dealer score: ' num2str(dealerScore)]) % display the dealer score
 
 % Ending messages
-if finalScores > 21
+if any(finalScores > 21)
     disp('Bust! You lose') % Bust losing message
-elseif (finalScores <= 21) && (finalScores > dealerScore)
+elseif all(finalScores <= 21) && all(finalScores > dealerScore)
     disp('You win!') % Winning message 
 elseif finalScores < 17
     disp('You lose') % Losing message
@@ -53,7 +53,7 @@ elseif finalScores == dealerScore
     disp('Push! Its a tie!')
 end
 
-%%%%% Function Graveyard
+%%%%%% Function Graveyard %%%%%%
 
 
 %Function to create the deck of cards
