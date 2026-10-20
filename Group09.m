@@ -18,6 +18,21 @@ disp(playerHands) % show all player hands
 disp("Dealer hand:") % label the dealer hand display
 disp(dealerHand) % show the dealer's hand
 
+finalScores = zeros(playerCount, 1); % i hope we are allowed to do this, if not, omit it --> it just makes a matrix filled with zeroes so that the player's final scores can be stored 
+
+% basis for the turn system 
+for playerIdx = 1:playerCount % mechanic for when player executes their turn 
+    currentHand = playerHands(playerIdx, :);
+    currentVals = playerHandVals(playerIdx, :); 
+    [currentHand, currentVals, deck,deckVals] = playerHand(currentHand,currentVals, deck, deckVals, playerIdx); % calls hit or stand for each player 
+    finalScores(playerIdx) = calculateScore(currentVals);
+end 
+
+dealerScore = calcualteScore(dealerHandVals); % for calculating dealer's final score with ace 
+
+
+
+
 %%%%% Function Graveyard
 
 %Function that makes deck
@@ -78,4 +93,43 @@ end
 %Function for dealer rules
 
 %Function for Hit/Stand
+function [hand, handVals, deck, deckVals] = playPlayerHand(hand, handVals, deck, deckVals, playerIdx);
+if playerIdx ==1 % checks for user/human player or bot 
+    disp('Player 1 Turn'); 
+    playing = true; 
+    while playing  
+        currentScore = calculateScore(handVals); % calculate score while playing 
+        disp('Your current hand are: '); % displays the player's current hand 
+        disp(hand);
+        disp(['Current Score :', num2str(currentScore)]);
+        if currentScore > 21 % if statement to check if player's score is greater than 21 --> which is the condition for a bust
+            disp('Bust! Too bad! You went over 21. Good Luck next time ~')
+        end
+
+        choice = input ('Would you like to HIT (1) or STAND (2) ? '); % asks user if they want to hit or stand 
+        if choice == 1 % this signifies hit, which means that the top card of the deck array is drawn 
+            hand = [hand, deck(1)]; 
+            handVals = [handVals, deckVals(1)]; 
+            deck(1) = [];  %allows for the drawn card to be removed from the deck 
+            deckVals(1) = []; 
+        else 
+            playing = false; % can be interpreted as stand. it stops the loop and ends the player's/user's turn 
+        end 
+    end
+else 
+    disp(['Player ', num2str(playerIdx), ' Turn (Dealer Bot)']); % displays that the bot follows dealer's rules (named dealer bot)
+    score = calculateScore(handVals); 
+    while score < 17 && ~isempty(deck) %this while statement allows for cards to be drawn (also known as hitting) as long as the cumulative score is under 17
+        hand = [hand, deck(1)];
+        handVals = [handVals, deckVals(1)];
+        deck(1) = []; 
+        deckVals(1) = []; 
+        score = calculateScore(handVals); 
+    end 
+    disp(['Player ', num2str(playerIdx), ' finished with score: ', num2str(score)]); % displays the final score of the bot
+    end 
+end
+
+
+
 
