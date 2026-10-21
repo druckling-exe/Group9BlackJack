@@ -1,7 +1,7 @@
 % Group09
 clear;
 clc;
-% clear the command window first
+% clear the command window first, dont delete this line, we need it for full credit
 
 disp('Welcome to Group 9''s Casino! Ready for some BlackJack?'); % welcome message
 
@@ -43,26 +43,32 @@ disp(dealerHand) % display dealer hand
 disp(['Dealer score: ' num2str(dealerScore)]) % display the dealer score
 
 % Ending messages
-if any(finalScores > 21)
-    disp('Bust! You lose') % Bust losing message
-elseif all(finalScores <= 21) && all(finalScores > dealerScore)
-    disp('You win!') % Winning message 
-elseif finalScores < 17
-    disp('You lose') % Losing message
-elseif finalScores == dealerScore
-    disp('Push! Its a tie!')
+for playerIdx = 1:playerCount
+    playerScore = finalScores(playerIdx); % creates a for loop so it displays each player's result
+
+    if playerScore > 21
+        disp(['Player ' num2str(playerIdx) ': Bust! You lose']) % player bust
+    elseif dealerScore > 21
+        disp(['Player ' num2str(playerIdx) ': You win!']) % player win if dealer above 21
+    elseif playerScore > dealerScore
+        disp(['Player ' num2str(playerIdx) ': You win!']) % player win if beats dealer score
+    elseif playerScore < dealerScore
+        disp(['Player ' num2str(playerIdx) ': You lose']) % player loose
+    else
+        disp(['Player ' num2str(playerIdx) ': Push! It''s a tie!']) % push
+    end
 end
+
 
 %%%%%% Function Graveyard %%%%%%
 
 
 %Function to create the deck of cards
 function [cardRank, cardSuit, cardVals] = cardCreation() % make the rank, suit, and value arrays
-cardRank = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
-cardSuit = ["Hearts", "Spades", "Diamonds", "Clubs"];
-cardVals = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+cardRank = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]; % card ranks
+cardSuit = ["Hearts", "Spades", "Diamonds", "Clubs"]; % card suits
+cardVals = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]; % card values(keeps ace at 11, until best in which it switches to 1)
 end
-
 
 %Function to shuffle the deck of cards
 function [deck, deckVals] = shuffleDeck(cardRank, cardSuit, cardVals) % build and shuffle the deck
@@ -83,7 +89,6 @@ deck = deck(perm); % shuffle the card names
 deckVals = deckVals(perm); % shuffle the values the same way
 end
 
-
 %Function to deal the cards
 function [playerHands, playerHandVals, dealerHand, dealerHandVals, deck, deckVals] = dealDeck(deck, deckVals, playerCount) % deal cards to the players and dealer
 playerHands = strings(playerCount, 2); % store each player's first two cards
@@ -101,7 +106,6 @@ dealerHandVals = deckVals(1:2).'; % store the dealer values
 deck(1:2) = []; % remove those cards from the deck
 deckVals(1:2) = []; % remove those values from the deck values
 end
-
 
 %Function to hit/stand with the cards (Turns)
 function [hand, handVals, deck, deckVals] = playPlayerHand(hand, handVals, deck, deckVals, playerIdx, dealerHandVals)
@@ -160,7 +164,6 @@ else
 end
 end
 
-
 %Function to let the dealer hit after the players finish
 function [hand, handVals, deck, deckVals] = playDealerHand(hand, handVals, deck, deckVals)
 disp('Dealer Turn');
@@ -178,13 +181,11 @@ disp('Dealer finished with hand:');
 disp(hand);
 end
 
-
-
 %Function to calculate the hand score
 function score = calculateScore(handVals) % calculate the hand score, counting aces as 1 if needed
 score = sum(handVals);
 
-while score > 21 && any(handVals == 11)
+while score > 21 && any(handVals == 11) % this turns the ace to 1 if you are going to bust with ace being 11
     handVals(handVals == 11) = 1;
     score = sum(handVals);
 end
