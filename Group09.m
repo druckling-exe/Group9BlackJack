@@ -5,7 +5,7 @@ clc;
 
 disp('Welcome to Group 9''s Casino! Ready for some BlackJack?'); % welcome message
 
-playerCount = input('How many players came to loose money today? '); % ask how many players there are
+playerCount = input('How many players came to lose money today? '); % ask how many players there are
 disp(['Welcome ' num2str(playerCount) ' players!']) % confirm the player count
 
 [cardRank, cardSuit, cardVals] = cardCreation(); % create the card lists
@@ -26,7 +26,7 @@ finalScores = zeros(playerCount, 1); % store each player's score
 for playerIdx = 1:playerCount
     currentHand = playerHands(playerIdx, :); % get this player's current hand
     currentVals = playerHandVals(playerIdx, :); % get this player's card values
-    [currentHand, currentVals, deck, deckVals] = playPlayerHand(currentHand, currentVals, deck, deckVals, playerIdx, dealerHandVals); % let the player hit or stand
+    [currentHand, currentVals, deck, deckVals] = playPlayerHand(currentHand, currentVals, deck, deckVals, playerIdx, dealerHandVals); % let player 1 hit or stand
     playerHands(playerIdx, 1:numel(currentHand)) = currentHand; % store updated hand
     playerHandVals(playerIdx, 1:numel(currentVals)) = currentVals; % store updated values
     finalScores(playerIdx) = calculateScore(currentVals); % save this player's final score
@@ -149,7 +149,7 @@ if playerIdx == 1 % first player is the human
     disp(hand);
     disp(['Player 1 final score: ' num2str(calculateScore(handVals))]);
 else
-    disp(['Player ', num2str(playerIdx), ' Turn (Dealer Bot)']); % bot turn message
+    disp(['Player ', num2str(playerIdx), ' Turn (Dealer Bot)']); % non-dealer bot turn message
     score = calculateScore(handVals);
 
     while score < 17 && ~isempty(deck) % bot keeps hitting until 17 or higher
